@@ -8,7 +8,7 @@ import { navigationLinks } from "./navigations-links";
   <header class="flex justify-between items-center p-4">
     <div class="flex items-center gap-2 text-primary">
       <BookText />
-      <div>Logo</div>
+      <div>TODO-VUE 💚</div>
     </div>
     <nav>
       <ul class="flex gap-4">

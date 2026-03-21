@@ -10,3 +10,10 @@ export {
   CardHeader,
   CardTitle,
 } from "./card";
+export { Checkbox } from "./checkbox";
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip";

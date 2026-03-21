@@ -3,6 +3,7 @@ import "./style.css";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "./shared/config";
+import { VueQueryPlugin } from "@tanstack/vue-query";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -10,5 +11,6 @@ export const router = createRouter({
 });
 
 const app = createApp(App);
+app.use(VueQueryPlugin);
 app.use(router);
 app.mount("#app");
