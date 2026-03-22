@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { TodolistItem } from "@/features/todolists";
 
-import {
-  useCreateTodolist,
-  useGetTodolists,
-} from "@/features/todolists/model";
+import { useCreateTodolist, useGetTodolists } from "@/features/todolists/model";
 import { CreateItemForm } from "@/shared/components/common";
 import { computed } from "vue";
 
@@ -34,6 +31,7 @@ const errorMessage = computed(() => {
     />
     <div
       class="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      v-auto-animate
     >
       <p v-if="isPending">Loading todolists...</p>
       <p v-else-if="isError">{{ errorMessage }}</p>

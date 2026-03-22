@@ -24,6 +24,7 @@ import {
   useDeleteTodolist,
   useUpdateTodolistTitle,
 } from "@/features/todolists/model";
+import { useCreateTask } from "@/features/tasks/model/use-create-task";
 
 const { todolist } = defineProps<{
   todolist: DomainTodolist;
@@ -37,6 +38,7 @@ const handleChangeFilter = (filterValue: TaskFilter) => {
 
 const { mutate: deleteTodolist } = useDeleteTodolist();
 const { update } = useUpdateTodolistTitle();
+const { create, isPending: isCreating } = useCreateTask();
 
 const handleDeleteTodolist = () => {
   deleteTodolist({ todolistId: todolist.id });
@@ -45,6 +47,11 @@ const handleUpdateTodolistTitle = (title: string) => {
   if (title === todolist.title) return;
 
   update({ todolistId: todolist.id, title: title });
+};
+
+const handeleCreateTask = (title: string) => {
+  create({ title, todolistId: todolist.id });
+  console.log({ title, todolistId: todolist.id });
 };
 </script>
 
@@ -78,7 +85,11 @@ const handleUpdateTodolistTitle = (title: string) => {
         </div>
       </CardTitle>
       <div class="w-full min-w-0">
-        <CreateItemForm title="Add task" />
+        <CreateItemForm
+          @create-item="handeleCreateTask"
+          :loading="isCreating"
+          title="Add task"
+        />
       </div>
     </CardHeader>
     <CardContent>
