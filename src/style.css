@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "vue3-toastify/dist/index.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -89,6 +90,33 @@
   --display-family: "Geist Mono", monospace;
   --body-family: "JetBrains Mono", monospace;
   --font-mono: "JetBrains Mono", monospace;
+
+  --toastify-font-family: var(--body-family);
+  --toastify-color-light: var(--card);
+  --toastify-color-dark: var(--card);
+  --toastify-toast-background: var(--card);
+  --toastify-text-color-light: var(--card-foreground);
+  --toastify-text-color-dark: var(--card-foreground);
+  --toastify-color-info: var(--accent);
+  --toastify-color-success: var(--primary);
+  --toastify-color-warning: var(--secondary);
+  --toastify-color-error: var(--destructive);
+  --toastify-icon-color-info: var(--accent-foreground);
+  --toastify-icon-color-success: var(--primary);
+  --toastify-icon-color-warning: var(--secondary-foreground);
+  --toastify-icon-color-error: var(--destructive);
+  --toastify-text-color-info: var(--accent-foreground);
+  --toastify-text-color-success: var(--primary-foreground);
+  --toastify-text-color-warning: var(--secondary-foreground);
+  --toastify-text-color-error: var(--destructive-foreground);
+  --toastify-color-progress-light: var(--primary);
+  --toastify-color-progress-dark: var(--primary);
+  --toastify-color-progress-info: var(--accent);
+  --toastify-color-progress-success: var(--primary);
+  --toastify-color-progress-warning: var(--secondary-foreground);
+  --toastify-color-progress-error: var(--destructive);
+  --toastify-spinner-color: var(--primary);
+  --toastify-spinner-color-empty-area: var(--muted);
 }
 .dark {
   --background: oklch(0.18 0.005 161.74);
@@ -177,4 +205,43 @@ body {
 
 .title {
   font-family: var(--display-family);
+}
+
+.Toastify__toast {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.12);
+  color: var(--card-foreground);
+}
+
+.Toastify__toast--success {
+  border-color: var(--primary);
+}
+
+.Toastify__toast--info {
+  border-color: var(--accent);
+}
+
+.Toastify__toast--warning {
+  border-color: var(--secondary);
+}
+
+.Toastify__toast--error {
+  border-color: var(--destructive);
+}
+
+.Toastify__close-button--light,
+.Toastify__close-button--dark {
+  color: var(--muted-foreground);
+  opacity: 0.8;
+}
+
+.Toastify__close-button--light:hover,
+.Toastify__close-button--dark:hover {
+  color: var(--foreground);
+}
+
+.Toastify__progress-bar {
+  height: 3px;
+  opacity: 1;
 }

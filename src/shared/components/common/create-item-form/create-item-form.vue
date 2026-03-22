@@ -9,25 +9,37 @@ const { loading, title = "Create Item" } = defineProps<{
 }>();
 
 const emits = defineEmits<{
-  (e: "create-item"): void;
+  (e: "create-item", payload: string): void;
 }>();
 
 const inputValue = ref("");
-const disabledButton = computed(() => !inputValue.value || loading);
+const disabledButton = computed(() => !inputValue.value.trim() || loading);
+
+const create = () => {
+  const value = inputValue.value.trim();
+  if (!value || loading) return;
+
+  emits("create-item", value);
+  inputValue.value = "";
+};
 </script>
 
 <template>
-  <div class="flex w-full flex-col gap-2">
+  <div class="flex w-full min-w-0 flex-col gap-2">
     <h2 class="text-sm font-semibold">{{ title }}</h2>
     <div
-      class="flex w-full flex-col items-stretch gap-2 sm:flex-row sm:items-center"
+      class="flex w-full min-w-0 flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:flex-nowrap"
     >
-      <Input placeholder="Write a title" v-model="inputValue" class="flex-1" />
+      <Input
+        placeholder="Write a title"
+        v-model="inputValue"
+        class="w-full min-w-0 sm:flex-1"
+      />
       <Button
         :disabled="disabledButton"
         :loading="loading"
-        class="w-full sm:w-auto"
-        @click="emits('create-item')"
+        class="w-full shrink-0 sm:w-auto"
+        @click="create"
       >
         <Plus />
       </Button>

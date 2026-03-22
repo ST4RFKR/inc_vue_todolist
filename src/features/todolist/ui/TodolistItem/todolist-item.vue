@@ -19,6 +19,10 @@ import TasksList from "./Tasks/tasks-list.vue";
 import { Info, X } from "lucide-vue-next";
 import { ref } from "vue";
 import type { DomainTodolist } from "../../model/types";
+import {
+  useDeleteTodolist,
+  useUpdateTodolistTitle,
+} from "@/features/todolist/model";
 
 const { todolist } = defineProps<{
   todolist: DomainTodolist;
@@ -29,14 +33,31 @@ const filter = ref(todolist.filter);
 const handleChangeFilter = (filterValue: "all" | "active" | "completed") => {
   filter.value = filterValue;
 };
+
+const { mutate: deleteTodolist } = useDeleteTodolist();
+const { update } = useUpdateTodolistTitle();
+
+const handleDeleteTodolist = () => {
+  deleteTodolist({ todolistId: todolist.id });
+};
+const handleUpdateTodolistTitle = (title: string) => {
+  if (title === todolist.title) return;
+
+  update({ todolistId: todolist.id, title: title });
+};
 </script>
 
 <template>
-  <Card class="flex flex-col gap-3">
+  <Card class="flex h-full flex-col gap-3 justify-between">
     <CardHeader>
       <CardTitle>
-        <div class="flex items-center justify-between gap-2">
-          <EditableSpan :text="todolist.title" />
+        <div
+          class="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center"
+        >
+          <EditableSpan
+            @update-title="handleUpdateTodolistTitle"
+            :text="todolist.title"
+          />
           <div class="flex items-center gap-2">
             <TooltipProvider>
               <Tooltip>
@@ -49,13 +70,15 @@ const handleChangeFilter = (filterValue: "all" | "active" | "completed") => {
                 >
               </Tooltip>
             </TooltipProvider>
-            <Button variant="ghost">
+            <Button @click="handleDeleteTodolist" variant="ghost">
               <X class="size-4" />
             </Button>
           </div>
         </div>
       </CardTitle>
-      <CreateItemForm title="Add task" />
+      <div class="w-full min-w-0">
+        <CreateItemForm title="Add task" />
+      </div>
     </CardHeader>
     <CardContent>
       <TasksList :filter="filter" :todolistId="todolist.id" />
