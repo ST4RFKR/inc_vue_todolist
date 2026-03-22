@@ -1,4 +1,4 @@
-import { NotFound, TodolistView, FaqView, LoginView } from "../../../pages";
+import { NotFound, TodolistView, FaqView, LoginView } from "@/pages";
 
 export const routerPaths = {
   home: "/",
@@ -8,7 +8,12 @@ export const routerPaths = {
 };
 
 export const routes = [
-  { path: routerPaths.home, name: "home", component: TodolistView },
+  {
+    path: routerPaths.home,
+    name: "home",
+    component: TodolistView,
+    meta: { requiresAuth: true },
+  },
   { path: routerPaths.login, name: "login", component: LoginView },
   { path: routerPaths.faq, name: "faq", component: FaqView },
   { path: routerPaths.notFound, name: "not-found", component: NotFound },

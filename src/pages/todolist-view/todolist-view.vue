@@ -23,24 +23,22 @@ const errorMessage = computed(() => {
 </script>
 
 <template>
-  <div>
-    <CreateItemForm
-      title="Create Todolist"
-      @create-item="handleCreateTodolist"
-      :loading="isCreating"
-    />
-    <div
-      class="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-      v-auto-animate
-    >
-      <p v-if="isPending">Loading todolists...</p>
-      <p v-else-if="isError">{{ errorMessage }}</p>
+  <CreateItemForm
+    title="Create Todolist"
+    @create-item="handleCreateTodolist"
+    :loading="isCreating"
+  />
+  <div
+    class="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+    v-auto-animate
+  >
+    <p v-if="isPending">Loading todolists...</p>
+    <p v-else-if="isError">{{ errorMessage }}</p>
 
-      <TodolistItem
-        v-for="todolist in data"
-        :key="todolist.id"
-        :todolist="todolist"
-      />
-    </div>
+    <TodolistItem
+      v-for="todolist in data"
+      :key="todolist.id"
+      :todolist="todolist"
+    />
   </div>
 </template>

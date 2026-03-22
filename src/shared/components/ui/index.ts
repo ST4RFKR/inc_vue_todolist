@@ -41,3 +41,14 @@ export {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 export { Separator } from "./separator";
+
+export {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from "./field";

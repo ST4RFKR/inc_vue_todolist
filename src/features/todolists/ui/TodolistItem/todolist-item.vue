@@ -15,6 +15,8 @@ import {
   TooltipTrigger,
   TooltipProvider,
   Dialog,
+  DialogContent,
+  DialogTrigger,
 } from "@/shared/components/ui";
 import { TasksList } from "@/features/tasks/ui";
 import { Info, X } from "lucide-vue-next";
@@ -26,8 +28,6 @@ import {
   useUpdateTodolistTitle,
 } from "@/features/todolists/model";
 import { useCreateTask } from "@/features/tasks/model/use-create-task";
-import DialogTrigger from "@/shared/components/ui/dialog/DialogTrigger.vue";
-import DialogContent from "@/shared/components/ui/dialog/DialogContent.vue";
 
 const { todolist } = defineProps<{
   todolist: DomainTodolist;
@@ -82,10 +82,7 @@ const handeleCreateTask = (title: string) => {
                 >
               </Tooltip>
             </TooltipProvider>
-            <Dialog
-              modal
-              v-model:open="open"
-            >
+            <Dialog modal v-model:open="open">
               <DialogTrigger as-child>
                 <Button variant="ghost">
                   <X class="size-4" />
