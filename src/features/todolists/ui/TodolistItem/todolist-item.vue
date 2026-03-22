@@ -14,6 +14,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
+  Dialog,
 } from "@/shared/components/ui";
 import { TasksList } from "@/features/tasks/ui";
 import { Info, X } from "lucide-vue-next";
@@ -25,12 +26,15 @@ import {
   useUpdateTodolistTitle,
 } from "@/features/todolists/model";
 import { useCreateTask } from "@/features/tasks/model/use-create-task";
+import DialogTrigger from "@/shared/components/ui/dialog/DialogTrigger.vue";
+import DialogContent from "@/shared/components/ui/dialog/DialogContent.vue";
 
 const { todolist } = defineProps<{
   todolist: DomainTodolist;
 }>();
 
 const filter = ref<TaskFilter>(todolist.filter);
+const open = ref(false);
 
 const handleChangeFilter = (filterValue: TaskFilter) => {
   filter.value = filterValue;
@@ -78,9 +82,26 @@ const handeleCreateTask = (title: string) => {
                 >
               </Tooltip>
             </TooltipProvider>
-            <Button @click="handleDeleteTodolist" variant="ghost">
-              <X class="size-4" />
-            </Button>
+            <Dialog
+              modal
+              v-model:open="open"
+            >
+              <DialogTrigger as-child>
+                <Button variant="ghost">
+                  <X class="size-4" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <p>Are you sure you want to delete this todolist?</p>
+                <p>This action cannot be undone.</p>
+                <div class="flex justify-end gap-2">
+                  <Button @click="open = false">Cancel</Button>
+                  <Button @click="handleDeleteTodolist" variant="destructive">
+                    Delete
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </CardTitle>
