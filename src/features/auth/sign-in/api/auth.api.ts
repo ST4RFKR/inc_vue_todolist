@@ -24,4 +24,10 @@ export const authApi = {
       throw toError(error, "Unable to sign in. Please try again.");
     }
   },
+  async logout() {
+    return baseApi.delete("auth/login");
+  },
+  async me() {
+    return baseApi.get("auth/me");
+  },
 };

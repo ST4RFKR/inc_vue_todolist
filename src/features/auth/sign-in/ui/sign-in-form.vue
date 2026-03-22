@@ -18,7 +18,7 @@ import {
   Input,
 } from "@/shared/components/ui";
 import { cn } from "@/shared/lib/style";
-import { useLogin } from "../model/useLogin";
+import { useLogin } from "../model/use-login";
 
 const { handleSubmit, isSubmitting, submitCount } = useForm({
   validationSchema: toTypedSchema(

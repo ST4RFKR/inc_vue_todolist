@@ -34,6 +34,7 @@ const create = () => {
         placeholder="Write a title"
         v-model="inputValue"
         class="w-full min-w-0 sm:flex-1"
+        @keydown.enter.prevent="create"
       />
       <Button
         :disabled="disabledButton"

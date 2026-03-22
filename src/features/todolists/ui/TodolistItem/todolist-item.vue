@@ -3,6 +3,7 @@ import {
   CreateItemForm,
   FilterButtons,
   EditableSpan,
+  ConfirmModal,
 } from "@/shared/components/common";
 import {
   Button,
@@ -14,9 +15,6 @@ import {
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
-  Dialog,
-  DialogContent,
-  DialogTrigger,
 } from "@/shared/components/ui";
 import { TasksList } from "@/features/tasks/ui";
 import { Info, X } from "lucide-vue-next";
@@ -34,13 +32,14 @@ const { todolist } = defineProps<{
 }>();
 
 const filter = ref<TaskFilter>(todolist.filter);
-const open = ref(false);
+const isDeleteModalOpen = ref(false);
 
 const handleChangeFilter = (filterValue: TaskFilter) => {
   filter.value = filterValue;
 };
 
-const { mutate: deleteTodolist } = useDeleteTodolist();
+const { mutate: deleteTodolist, isPending: isDeletingTodolist } =
+  useDeleteTodolist();
 const { update } = useUpdateTodolistTitle();
 const { create, isPending: isCreating } = useCreateTask();
 
@@ -60,7 +59,7 @@ const handeleCreateTask = (title: string) => {
 </script>
 
 <template>
-  <Card class="flex h-full flex-col gap-3 justify-between">
+  <Card class="flex h-full flex-col gap-3">
     <CardHeader>
       <CardTitle>
         <div
@@ -82,23 +81,21 @@ const handeleCreateTask = (title: string) => {
                 >
               </Tooltip>
             </TooltipProvider>
-            <Dialog modal v-model:open="open">
-              <DialogTrigger as-child>
+            <ConfirmModal
+              v-model:open="isDeleteModalOpen"
+              title="Are you sure you want to delete this todolist?"
+              description="This action cannot be undone."
+              confirm-text="Delete"
+              confirm-variant="destructive"
+              :pending="isDeletingTodolist"
+              @confirm="handleDeleteTodolist"
+            >
+              <template #trigger>
                 <Button variant="ghost">
                   <X class="size-4" />
                 </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <p>Are you sure you want to delete this todolist?</p>
-                <p>This action cannot be undone.</p>
-                <div class="flex justify-end gap-2">
-                  <Button @click="open = false">Cancel</Button>
-                  <Button @click="handleDeleteTodolist" variant="destructive">
-                    Delete
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
+              </template>
+            </ConfirmModal>
           </div>
         </div>
       </CardTitle>

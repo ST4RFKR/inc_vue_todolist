@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { BookText, LogIn, LogOut } from "@lucide/vue";
-import { useRouter } from "vue-router";
+import { ref } from "vue";
 import { Button } from "@/shared/components/ui";
+import { ConfirmModal } from "@/shared/components/common/confirm-modal";
 import { navigationLinks } from "./navigations-links";
 import ModeToggle from "../mode-toggle/mode-toggle.vue";
 import { useAuthStore } from "@/shared/store/auth.store";
 import { storeToRefs } from "pinia";
 import { routerPaths } from "@/shared/config/routes";
+import { useLogout } from "@/features/auth/sign-in/model/use-logout";
 
 const store = useAuthStore();
-const router = useRouter();
 const { isLoggedIn } = storeToRefs(store);
+const isLogoutModalOpen = ref(false);
+const { logout } = useLogout();
 
 const handleLogout = () => {
-  store.logout();
-  router.push({ path: routerPaths.login });
+  logout();
 };
 </script>
 
@@ -50,14 +52,21 @@ const handleLogout = () => {
             </Button>
           </li>
           <li v-else>
-            <Button
-              variant="link"
-              class="inline-flex items-center gap-2"
-              @click="handleLogout"
+            <ConfirmModal
+              v-model:open="isLogoutModalOpen"
+              title="Are you sure you want to log out?"
+              description="You will need to log in again to continue."
+              confirm-text="Logout"
+              confirm-variant="destructive"
+              @confirm="handleLogout"
             >
-              <LogOut class="size-4" aria-hidden="true" />
-              <span>Logout</span>
-            </Button>
+              <template #trigger>
+                <Button variant="link" class="inline-flex items-center gap-2">
+                  <LogOut class="size-4" aria-hidden="true" />
+                  <span>Logout</span>
+                </Button>
+              </template>
+            </ConfirmModal>
           </li>
         </ul>
       </nav>
