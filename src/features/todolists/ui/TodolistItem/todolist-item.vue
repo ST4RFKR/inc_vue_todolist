@@ -15,22 +15,23 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/shared/components/ui";
-import TasksList from "./Tasks/tasks-list.vue";
+import { TasksList } from "@/features/tasks/ui";
 import { Info, X } from "lucide-vue-next";
 import { ref } from "vue";
 import type { DomainTodolist } from "../../model/types";
+import type { TaskFilter } from "@/features/tasks/model";
 import {
   useDeleteTodolist,
   useUpdateTodolistTitle,
-} from "@/features/todolist/model";
+} from "@/features/todolists/model";
 
 const { todolist } = defineProps<{
   todolist: DomainTodolist;
 }>();
 
-const filter = ref(todolist.filter);
+const filter = ref<TaskFilter>(todolist.filter);
 
-const handleChangeFilter = (filterValue: "all" | "active" | "completed") => {
+const handleChangeFilter = (filterValue: TaskFilter) => {
   filter.value = filterValue;
 };
 

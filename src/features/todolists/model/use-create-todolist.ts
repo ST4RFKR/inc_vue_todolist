@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/vue-query";
-import { todolistApi } from "@/features/todolist/api";
+import { todolistApi } from "@/features/todolists/api";
 import { toast } from "vue3-toastify";
 
 export function useCreateTodolist() {

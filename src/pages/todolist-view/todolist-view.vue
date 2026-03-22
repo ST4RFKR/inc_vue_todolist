@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { TodolistItem } from "@/features/todolist";
+import { TodolistItem } from "@/features/todolists";
 
-import { useCreateTodolist, useGetTodolists } from "@/features/todolist/model";
+import {
+  useCreateTodolist,
+  useGetTodolists,
+} from "@/features/todolists/model";
 import { CreateItemForm } from "@/shared/components/common";
 import { computed } from "vue";
 

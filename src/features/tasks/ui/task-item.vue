@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { TaskDto } from "@/features/todolist/api/tasks.api";
-import { TaskStatus } from "@/features/todolist/model/enums";
+import type { TaskDto } from "@/features/tasks/model";
+import { TaskStatus } from "@/features/tasks/model";
 import { EditableSpan } from "@/shared/components/common";
 import { Button, Card, Checkbox } from "@/shared/components/ui";
 import { X } from "@lucide/vue";

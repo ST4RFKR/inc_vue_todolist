@@ -1,17 +1,5 @@
 import { baseApi } from "@/shared/api/base-api";
-
-export type TaskDto = {
-  id: string;
-  title: string;
-  description: string;
-  status: number;
-  priority: number;
-  startDate: string;
-  deadline: string;
-  todoListId: string;
-  order: number;
-  addedDate: string;
-};
+import type { TaskDto } from "../model/types";
 
 type GetTasksResponse = {
   items: TaskDto[];
