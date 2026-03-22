@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { Plus } from "@lucide/vue";
-import Input from "../../ui/input/Input.vue";
-import Button from "../../ui/button/Button.vue";
+import { Input, Button } from "@/shared/components/ui";
+
 const { loading, title = "Create Item" } = defineProps<{
   title?: string;
   loading?: boolean;

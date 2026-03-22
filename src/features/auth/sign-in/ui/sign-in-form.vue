@@ -20,6 +20,7 @@ import {
 import { cn } from "@/shared/lib/style";
 import { useLogin } from "../model/use-login";
 
+const { login } = useLogin();
 const { handleSubmit, isSubmitting, submitCount } = useForm({
   validationSchema: toTypedSchema(
     object({
@@ -35,8 +36,6 @@ const { handleSubmit, isSubmitting, submitCount } = useForm({
     password: "",
   },
 });
-
-const { login } = useLogin();
 
 const {
   value: email,
